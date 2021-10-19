@@ -38,24 +38,30 @@ export const tableProps = {
     default: false,
   },
   data: { // 表格数据
-    type: Array,
-    default: (): Array<any> => {
+    type: Array as PropType<Array<Object>>,
+    default: (): Array<Object> => {
       return []
     },
+    required: true,
   },
   columns: { // 列数据
     type: Array as PropType<ColumnPublicProps[]>,
     default: (): ColumnPublicProps[] => {
       return []
     },
+    required: true,
   },
-  pagination: {
-    type: [Object as PropType<paginationType>, Boolean],
+  showHeader: { // 是否显示表头
+    type: Boolean,
+    default: true,
+  },
+  pagination: { // 分页配置
+    type: [Object as PropType<paginationType>, false],
     default: (): paginationType | false => {
       return false
     },
   },
-  maxHeight: {
+  maxHeight: { // 表格体最大高度配置（默认按照内容撑开即高度为auto，配置后超出限制则滚动页面）
     type: [Number, String],
     default: -1,
   },
@@ -65,9 +71,10 @@ export const columnProps = {
     type: String,
     default: '',
   },
-  name: { // 列名
+  name: { // 列名 --> 即唯一标识id
     type: String,
     default: '',
+    required: true,
   },
   canSort: {
     type: Boolean,
@@ -81,8 +88,29 @@ export const columnProps = {
   },
 }
 
+// TODO：拆分出Pagination组件
+// export const paginationProps = {
+//   pageIndex: { // 当前页码
+//     type: Number,
+//     default: 1,
+//   },
+//   pageSize: { // 当前每页大小
+//     type: Number,
+//     default: 10,
+//   },
+//   count: { // 总行数
+//     type: Number,
+//     default: 0,
+//   },
+//   size: { // 分页数量
+//     type: Number,
+//     default: 0,
+//   }
+// }
+
 export type TablePublicProps = IxPublicPropTypes<typeof tableProps>
 export type ColumnPublicProps = IxPublicPropTypes<typeof columnProps>
+// export type PaginationPublicProps = IxPublicPropTypes<typeof paginationProps>
 
 
 

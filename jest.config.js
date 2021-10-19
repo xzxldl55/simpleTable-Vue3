@@ -26,16 +26,28 @@ module.exports = {
               injectH: true,
             },
           ],
-
           '@babel/preset-typescript',
         ],
-        plugins: [
-          // 'transform-vue-jsx',
-          // ["@babel/plugin-proposal-decorators", { "legacy": true }]
+      },
+    ],
+    '^.+\\.(js|ts)$': [
+      'babel-jest',
+      {
+        presets: [
+          [
+            '@babel/preset-env',
+            {
+              targets: {
+                node: true,
+              },
+            },
+          ],
+          '@babel/preset-typescript',
         ],
       },
     ],
   },
+  transformIgnorePatterns: ['<rootDir>/node_modules/(?!(lodash-es|other-es-lib))'],
   globals: {
     __DEV__: true,
   },
@@ -43,7 +55,7 @@ module.exports = {
     '^@tests': '<rootDir>/tests',
     '^@tests/(.*)$': '<rootDir>/tests/$1',
   },
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'json'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'json', 'vue', 'node'],
   collectCoverage: true,
   coverageReporters: ['json', 'lcov', 'text', 'cobertura'],
   coverageThreshold: {

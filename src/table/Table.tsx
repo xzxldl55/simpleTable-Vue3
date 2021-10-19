@@ -2,8 +2,8 @@
  * Created by uedc on 2021/10/11.
  */
 
-import { computed, defineComponent, reactive, ref } from '@vue/composition-api'
-import { TablePublicProps, tableProps, paginationType, ColumnPublicProps } from './types'
+import { computed, defineComponent, Ref, ref, watch } from '@vue/composition-api'
+import { TablePublicProps, tableProps, paginationType } from './types'
 import Column from './Column'
 import { sortBy } from 'lodash-es'
 import './index.css'
@@ -11,60 +11,85 @@ import './index.css'
 export default defineComponent({
   name: 'Table',
   props: tableProps,
-  setup(props: TablePublicProps, { slots }) {
+  setup(props: TablePublicProps, { slots, emit }) {
     const classes = useClasses(props)
     const style = useStyle(props)
-    const tableColumns = useTableColumns(props)
-    const tableData = useTableData(props)
-    const count = computed(() => {
-      return props.data?.length || 0
-    })
-    const size = computed(() => {
-      return Math.ceil(count.value / props.pagination.pageSize)
-    })
-    const sortMap = new Map(); // 当前已排序的列信息（升序/降序）
+    let sortConf = ref({
+      sortKey: '',
+      sort: false
+    }); // 当前表格排序配置（升序/降序）
+    let pagination: paginationType | false = props.pagination as unknown as paginationType | false;
+    let tableData = useTableData(props, pagination, sortConf) // 获取table数据【关联props.data, 分页，排序】
 
+    // 侦听分页器变化，当外部分页器变化时重新覆盖组件内部分页器
+    watch(() => props.pagination, (val) => pagination = (val as unknown as paginationType | false))
+
+    const count = computed(() => { // 数据条目总数
+      if (Array.isArray(props.data)) {
+        return props.data.length
+      }
+      return 0
+    })
+    const size = computed(() => { // 总页数
+      if (pagination) {
+        return Math.ceil(count.value / pagination.pageSize)
+      }
+      return 0
+    })
 
     // 排序
-    const sortData = (name: string) => {
+    const sortTable = (name: string) => {
 
       // 回到首页
-      props.pagination.pageIndex = 1
-
-      // 没有排序过/值为false时，进行升序
-      if (!sortMap.get(name)) {
-        props.data = sortBy(props.data, (obj: { [x: string]: any }) => obj[name])
-        sortMap.set(name, 1);
-        return;
+      if (pagination) {
+        pagination.pageIndex = 1
       }
-      
-      // 降序排序
-      props.data = sortBy(props.data, (obj: { [x: string]: any }) => obj[name]).reverse()
-      sortMap.set(name, 0)
+
+      // 当前sortBy非name，则初始化按照name升序排序
+      if (sortConf.value.sortKey !== name) {
+        sortConf.value.sortKey = name
+        sortConf.value.sort = true
+      } else { // 正按照当前列排序，将排序方式取反
+        sortConf.value.sort = !sortConf.value.sort
+      }
+
+      // 抛出排序事件
+      emit('sort', { name, sort: sortConf.value.sort })
     }
 
-    // 改变页码
+    // 切换页码
     const changePage = (index: number) => {
-      if (props.pagination.pageIndex === index) {
+      if (!pagination) {
         return
       }
-      props.pagination.pageIndex = index;
+      if (pagination.pageIndex === index) {
+        return
+      }
+      pagination.pageIndex = index;
+
+      // 页码切换事件
+      emit('page-change', index)
     }
 
 
     return () => {
-      const operators = slots.operator?.()
+      const operators = slots.operator
+      const tableColumns = props.columns || []
       return (
         <table class={classes.value}>
           {/* 表头 */}
-          <thead>
+          <thead vShow={props.showHeader}>
             <tr>
               {
-                tableColumns?.value?.map(column => {
-                  return <Column title={column.title}
-                                 name={column.name}
-                                 canSort={column.canSort}
-                                 onClick={sortData} />
+                tableColumns.map(column => {
+
+                  // TODO：如何消灭IxPublicPropTypes带来的undefind类型
+                  return slots[column.name] ?
+                    <th>{ slots[column.name]({ column }) }</th> :
+                    <Column title={column.title}
+                            name={column.name}
+                            canSort={column.canSort}
+                            onClick={sortTable} />
                 })
               }
               {
@@ -77,15 +102,16 @@ export default defineComponent({
           {/* 表格主体 */}
           <tbody style={style.value}>
             {
-              tableData?.value?.map(item => {
+              tableData.value.map(item => {
                 return (<tr>
                     {
-                      tableColumns?.value?.map(column => {
-                        return <td>{ column.renderFn ? column.renderFn(item[column.name]) : item[column.name] }</td>
+                      tableColumns.map(column => {
+                        return <td column-data-name={column.name}>{ column.renderFn ? column.renderFn(item[column.name]) : item[column.name] }</td>
                       })
                     }
                     <td class="center">
-                      { operators }
+                      {/* TODO: 在Linux上运行时报错不给使用 ?. 语法，待确认是什么语法插件没配上 */}
+                      { operators ? operators({ item }) : '' }
                     </td>
                   </tr>)
               })
@@ -94,11 +120,11 @@ export default defineComponent({
           {/* 分页器 */}
           <div class="pagination center">
             {
-              props.pagination ? 
+              pagination ? 
               (
                 new Array(size.value).fill(1).map((v, i) => {
-                  return <span class={['pagination-btn', { 'on': props.pagination.pageIndex === i + 1 }]}
-                               onClick={changePage.bind(null, i + 1)}>{ i + 1 }</span>
+                  return <button class={['pagination-btn', { 'on': pagination.pageIndex === i + 1 }]}
+                                 onClick={changePage.bind(null, i + 1)}>{ i + 1 }</button>
                 })
               ) :
               ''
@@ -110,13 +136,17 @@ export default defineComponent({
   },
 })
 
+// 类名处理
 function useClasses (props: TablePublicProps) {
   return computed(() => {
     return {
+      'simple-table': true,
       'test-class': props.test,
     }
   })
 }
+
+// tBody样式处理
 function useStyle (props: TablePublicProps) {
   return computed(() => {
     return {
@@ -124,19 +154,28 @@ function useStyle (props: TablePublicProps) {
     }
   })
 }
-function useTableColumns (props: TablePublicProps) {
-  return ref(props.columns)
-}
 
-// 处理表格体数据（主要是数据分页过滤）
-function useTableData (props: TablePublicProps) {
-  const pagination = props.pagination as unknown as paginationType;
+// 返回应渲染的Table数据（在函数内进行对数据处理，如分页、排序等）
+function useTableData (props: TablePublicProps, pagination: paginationType | false, sortConf: Ref<{ sortKey: string; sort: boolean }>) {
   return computed(() => {
+    if (!props.data) {
+      return []
+    }
     if (!pagination) {
       return props.data
     }
+
+    // ... TODO：ect 其他功能添加，如 已选列表prop的处理
+
     const start = (pagination.pageIndex - 1) * pagination.pageSize
     const end = start + pagination.pageSize
-    return props?.data?.slice(start, end)
+
+    // 检测是否需要按某列排序
+    if (sortConf.value.sortKey) {
+      return sortConf.value.sort ? 
+        sortBy(props.data, (obj: { [x: string]: any }) => obj[sortConf.value.sortKey]).slice(start, end) :
+        sortBy(props.data, (obj: { [x: string]: any }) => obj[sortConf.value.sortKey]).reverse().slice(start, end)
+    }
+    return props.data.slice(start, end)
   })
 }

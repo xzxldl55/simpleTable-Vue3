@@ -3,7 +3,9 @@
  */
 
 import TestTable from './Table'
+import TestColumn from './Column'
 
 export {
-    TestTable
+    TestTable,
+    TestColumn
 }
