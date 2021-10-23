@@ -1,7 +1,9 @@
 dependencies:
+  '@types/debug': registry.nlark.com/@types/debug/4.1.7
   '@types/lodash-es': registry.nlark.com/@types/lodash-es/4.17.5
   '@vue/composition-api': registry.npmmirror.com/@vue/composition-api/1.2.4_vue@2.6.14
   '@vue/shared': registry.npmmirror.com/@vue/shared/3.2.20
+  debug: registry.nlark.com/debug/4.3.2
   lodash-es: 4.17.21
   vue: registry.npmmirror.com/vue/2.6.14
   vue-types: registry.npmmirror.com/vue-types/4.1.1_vue@2.6.14
@@ -25,6 +27,7 @@ devDependencies:
   eslint: registry.npmmirror.com/eslint/7.32.0
   eslint-plugin-vue: registry.npmmirror.com/eslint-plugin-vue/7.19.1_eslint@7.32.0
   jest: registry.npmmirror.com/jest/27.2.5_ts-node@10.3.0
+  jest-css-modules: registry.nlark.com/jest-css-modules/2.1.0
   jest-junit: registry.npmmirror.com/jest-junit/12.3.0
   less: registry.npmmirror.com/less/4.1.2
   less-plugin-clean-css: registry.npmmirror.com/less-plugin-clean-css/1.5.1
@@ -1967,11 +1970,6 @@ packages:
     resolution:
       integrity: sha1-PrXtYmInVteaXw4qIh3+utdcL34=
       tarball: mkdirp/download/mkdirp-1.0.4.tgz
-  /ms/2.1.2:
-    dev: true
-    resolution:
-      integrity: sha1-0J0fNXtEP0kzgqjrPM0YOHKuYAk=
-      tarball: ms/download/ms-2.1.2.tgz?cache=0&sync_timestamp=1607436580765&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fms%2Fdownload%2Fms-2.1.2.tgz
   /natural-compare/1.4.0:
     dev: true
     resolution:
@@ -4122,6 +4120,16 @@ packages:
       registry: https://registry.npm.taobao.org/
       tarball: https://registry.nlark.com/@types/babel__traverse/download/@types/babel__traverse-7.14.2.tgz
     version: 7.14.2
+  registry.nlark.com/@types/debug/4.1.7:
+    dependencies:
+      '@types/ms': registry.nlark.com/@types/ms/0.7.31
+    dev: false
+    name: '@types/debug'
+    resolution:
+      integrity: sha1-fMDqdhUJEkcJuLLRCQ2PbBeq24I=
+      registry: https://registry.npm.taobao.org/
+      tarball: https://registry.nlark.com/@types/debug/download/@types/debug-4.1.7.tgz
+    version: 4.1.7
   registry.nlark.com/@types/graceful-fs/4.1.5:
     dependencies:
       '@types/node': registry.npmmirror.com/@types/node/16.11.0
@@ -4197,6 +4205,14 @@ packages:
       registry: https://registry.npm.taobao.org/
       tarball: https://registry.nlark.com/@types/lodash-es/download/@types/lodash-es-4.17.5.tgz
     version: 4.17.5
+  registry.nlark.com/@types/ms/0.7.31:
+    dev: false
+    name: '@types/ms'
+    resolution:
+      integrity: sha1-MbfKZAcSij0rvCf+LSGzRTl/YZc=
+      registry: https://registry.npm.taobao.org/
+      tarball: https://registry.nlark.com/@types/ms/download/@types/ms-0.7.31.tgz
+    version: 0.7.31
   registry.nlark.com/@types/stack-utils/2.0.1:
     dev: true
     name: '@types/stack-utils'
@@ -4822,8 +4838,7 @@ packages:
     version: 3.2.7
   registry.nlark.com/debug/4.3.2:
     dependencies:
-      ms: 2.1.2
-    dev: true
+      ms: registry.npmmirror.com/ms/2.1.2
     engines:
       node: '>=6.0'
     name: debug
@@ -5193,6 +5208,14 @@ packages:
       registry: https://registry.npm.taobao.org/
       tarball: https://registry.nlark.com/graceful-fs/download/graceful-fs-4.2.8.tgz
     version: 4.2.8
+  registry.nlark.com/harmony-reflect/1.6.2:
+    dev: true
+    name: harmony-reflect
+    resolution:
+      integrity: sha1-Mey9MuZIo00DDYattn1NR1R/5xA=
+      registry: https://registry.npm.taobao.org/
+      tarball: https://registry.nlark.com/harmony-reflect/download/harmony-reflect-1.6.2.tgz
+    version: 1.6.2
   registry.nlark.com/has-ansi/2.0.0:
     dependencies:
       ansi-regex: registry.nlark.com/ansi-regex/2.1.1
@@ -5272,6 +5295,18 @@ packages:
       registry: https://registry.npm.taobao.org/
       tarball: https://registry.nlark.com/iconv-lite/download/iconv-lite-0.4.24.tgz
     version: 0.4.24
+  registry.nlark.com/identity-obj-proxy/3.0.0:
+    dependencies:
+      harmony-reflect: registry.nlark.com/harmony-reflect/1.6.2
+    dev: true
+    engines:
+      node: '>=4'
+    name: identity-obj-proxy
+    resolution:
+      integrity: sha1-lNK9qWCERT7zb7xarsN+D3nx/BQ=
+      registry: https://registry.npm.taobao.org/
+      tarball: https://registry.nlark.com/identity-obj-proxy/download/identity-obj-proxy-3.0.0.tgz
+    version: 3.0.0
   registry.nlark.com/is-generator-fn/2.1.0:
     dev: true
     engines:
@@ -5302,6 +5337,16 @@ packages:
       registry: https://registry.npm.taobao.org/
       tarball: https://registry.nlark.com/is-whitespace/download/is-whitespace-0.3.0.tgz
     version: 0.3.0
+  registry.nlark.com/jest-css-modules/2.1.0:
+    dependencies:
+      identity-obj-proxy: registry.nlark.com/identity-obj-proxy/3.0.0
+    dev: true
+    name: jest-css-modules
+    resolution:
+      integrity: sha1-nCXr6dAhTY9VhhpEImj91LAbR4E=
+      registry: https://registry.npm.taobao.org/
+      tarball: https://registry.nlark.com/jest-css-modules/download/jest-css-modules-2.1.0.tgz
+    version: 2.1.0
   registry.nlark.com/jest-docblock/27.0.6:
     dependencies:
       detect-newline: registry.npmmirror.com/detect-newline/3.1.0
@@ -8389,6 +8434,13 @@ packages:
       registry: https://registry.npm.taobao.org/
       tarball: https://registry.npmmirror.com/ms/download/ms-2.0.0.tgz
     version: 2.0.0
+  registry.npmmirror.com/ms/2.1.2:
+    name: ms
+    resolution:
+      integrity: sha1-0J0fNXtEP0kzgqjrPM0YOHKuYAk=
+      registry: https://registry.npm.taobao.org/
+      tarball: https://registry.npmmirror.com/ms/download/ms-2.1.2.tgz
+    version: 2.1.2
   registry.npmmirror.com/ms/2.1.3:
     dev: true
     name: ms
@@ -8969,6 +9021,7 @@ specifiers:
   '@babel/plugin-proposal-decorators': ^7.15.4
   '@babel/preset-env': ^7.15.6
   '@babel/preset-typescript': ^7.15.0
+  '@types/debug': ^4.1.7
   '@types/jest': ^27.0.1
   '@types/less': ^3.0.3
   '@types/lodash-es': ^4.17.5
@@ -8984,9 +9037,11 @@ specifiers:
   babel-plugin-syntax-jsx: ^6.18.0
   babel-plugin-transform-vue-jsx: ^3.7.0
   csstype: ^3.0.9
+  debug: ^4.3.2
   eslint: ^7.32.0
   eslint-plugin-vue: ^7.18.0
   jest: ^27.2.0
+  jest-css-modules: ^2.1.0
   jest-junit: ^12.2.0
   less: ^4.1.1
   less-plugin-clean-css: ^1.5.1

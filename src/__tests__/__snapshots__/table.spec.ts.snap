@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table render Default 1`] = `
+"<div class=\\"simple-table\\">
+  <header>
+    <div class=\\"table-search-container right\\"><select name=\\"tableFilter\\" class=\\"table-search-select\\">
+        <option value=\\"name\\">name</option>
+        <option value=\\"age\\">age</option>
+        <option value=\\"sex\\">sex</option>
+      </select><input type=\\"text\\" class=\\"table-search-input\\"></div>
+  </header>
+  <table>
+    <thead>
+      <tr>
+        <th column-name=\\"name\\">姓名<span class=\\"column-sort\\"></span></th>
+        <th column-name=\\"age\\">年龄<span class=\\"column-sort\\"></span></th>
+        <th column-name=\\"sex\\">性别</th>
+      </tr>
+    </thead>
+    <tbody style=\\"max-height: 240px;\\">
+      <tr>
+        <td column-data-name=\\"name\\" title=\\"Jerry0\\">Jerry0</td>
+        <td column-data-name=\\"age\\" title=\\"1\\">1</td>
+        <td column-data-name=\\"sex\\" title=\\"女\\">女</td>
+        <td class=\\"center\\"></td>
+      </tr>
+      <tr>
+        <td column-data-name=\\"name\\" title=\\"Jerry1\\">Jerry1</td>
+        <td column-data-name=\\"age\\" title=\\"2\\">2</td>
+        <td column-data-name=\\"sex\\" title=\\"男\\">男</td>
+        <td class=\\"center\\"></td>
+      </tr>
+      <tr>
+        <td column-data-name=\\"name\\" title=\\"Jerry2\\">Jerry2</td>
+        <td column-data-name=\\"age\\" title=\\"3\\">3</td>
+        <td column-data-name=\\"sex\\" title=\\"女\\">女</td>
+        <td class=\\"center\\"></td>
+      </tr>
+      <tr>
+        <td column-data-name=\\"name\\" title=\\"Jerry3\\">Jerry3</td>
+        <td column-data-name=\\"age\\" title=\\"4\\">4</td>
+        <td column-data-name=\\"sex\\" title=\\"男\\">男</td>
+        <td class=\\"center\\"></td>
+      </tr>
+      <tr>
+        <td column-data-name=\\"name\\" title=\\"Jerry4\\">Jerry4</td>
+        <td column-data-name=\\"age\\" title=\\"5\\">5</td>
+        <td column-data-name=\\"sex\\" title=\\"女\\">女</td>
+        <td class=\\"center\\"></td>
+      </tr>
+      <tr>
+        <td column-data-name=\\"name\\" title=\\"Jerry5\\">Jerry5</td>
+        <td column-data-name=\\"age\\" title=\\"6\\">6</td>
+        <td column-data-name=\\"sex\\" title=\\"男\\">男</td>
+        <td class=\\"center\\"></td>
+      </tr>
+      <tr>
+        <td column-data-name=\\"name\\" title=\\"Jerry6\\">Jerry6</td>
+        <td column-data-name=\\"age\\" title=\\"7\\">7</td>
+        <td column-data-name=\\"sex\\" title=\\"女\\">女</td>
+        <td class=\\"center\\"></td>
+      </tr>
+      <tr>
+        <td column-data-name=\\"name\\" title=\\"Jerry7\\">Jerry7</td>
+        <td column-data-name=\\"age\\" title=\\"8\\">8</td>
+        <td column-data-name=\\"sex\\" title=\\"男\\">男</td>
+        <td class=\\"center\\"></td>
+      </tr>
+      <tr>
+        <td column-data-name=\\"name\\" title=\\"Jerry8\\">Jerry8</td>
+        <td column-data-name=\\"age\\" title=\\"9\\">9</td>
+        <td column-data-name=\\"sex\\" title=\\"女\\">女</td>
+        <td class=\\"center\\"></td>
+      </tr>
+      <tr>
+        <td column-data-name=\\"name\\" title=\\"Jerry9\\">Jerry9</td>
+        <td column-data-name=\\"age\\" title=\\"10\\">10</td>
+        <td column-data-name=\\"sex\\" title=\\"男\\">男</td>
+        <td class=\\"center\\"></td>
+      </tr>
+    </tbody>
+    <div class=\\"pagination center\\"><button class=\\"pagination-btn on\\">1</button></div>
+  </table>
+</div>"
+`;

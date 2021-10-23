@@ -4,8 +4,9 @@
 
 import TestTable from './Table'
 import TestColumn from './Column'
+import './index.css'
 
 export {
-    TestTable,
-    TestColumn
+  TestTable,
+  TestColumn,
 }

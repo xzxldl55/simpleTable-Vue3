@@ -38,8 +38,8 @@ export const tableProps = {
     default: false,
   },
   data: { // 表格数据
-    type: Array as PropType<Array<Object>>,
-    default: (): Array<Object> => {
+    type: Array as PropType<Record<string, any>>,
+    default: (): Array<Record<string, any>> => {
       return []
     },
     required: true,
@@ -65,6 +65,12 @@ export const tableProps = {
     type: [Number, String],
     default: -1,
   },
+  filters: { // 可筛选字段
+    type: Array,
+    default: (): Array<string> => {
+      return []
+    },
+  },
 }
 export const columnProps = {
   title: { // 列标题
@@ -83,34 +89,20 @@ export const columnProps = {
   renderFn: {
     type: Function,
     default: () => {
-      return () => {}
+      return (): void => {}
+    },
+  },
+  sortConf: {
+    type: Object as PropType<{ sortKey: string; sort: boolean }>,
+    default: (): { sortKey: string; sort: boolean } => {
+      return { sortKey: '', sort: false }
     },
   },
 }
 
-// TODO：拆分出Pagination组件
-// export const paginationProps = {
-//   pageIndex: { // 当前页码
-//     type: Number,
-//     default: 1,
-//   },
-//   pageSize: { // 当前每页大小
-//     type: Number,
-//     default: 10,
-//   },
-//   count: { // 总行数
-//     type: Number,
-//     default: 0,
-//   },
-//   size: { // 分页数量
-//     type: Number,
-//     default: 0,
-//   }
-// }
 
 export type TablePublicProps = IxPublicPropTypes<typeof tableProps>
 export type ColumnPublicProps = IxPublicPropTypes<typeof columnProps>
-// export type PaginationPublicProps = IxPublicPropTypes<typeof paginationProps>
 
 
 

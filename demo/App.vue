@@ -1,15 +1,17 @@
 <template>
-  <div>
+  <div class="table_demo">
     <TestTable
       :data="tableData"
       :columns="tableColumns"
       :pagination="tablePagination"
+      :filters="tableFilters"
+      :max-height="240"
     >
-      <template #name="{ column }">
-        {{ column.name + column.title }}
-      </template>
       <template #operator="{ item }">
-        <a href="javascript:void(0)" @click="addItem">新增</a>
+        <a class="mr-1"
+           href="javascript:void(0)"
+           @click="addItem"
+        >新增</a>
         <a href="javascript:void(0)" @click="deleteItem(item)">删除</a>
       </template>
     </TestTable>
@@ -18,157 +20,15 @@
 
 <script lang="ts">
 import { TestTable } from '../src/table'
-import { defineComponent, reactive } from '@vue/composition-api'
+import { defineComponent, ref } from '@vue/composition-api'
+import {
+  Staff,
+  mockTableColumns,
+  mockTableData,
+} from '../src/mockData'
+import { cloneDeep } from 'lodash-es'
 
-type Sex = 0 | 1
-type Staff = {
-  name: string
-  age: number
-  sex: Sex
-};
-
-const staffMockData: Staff[] = [
-  {
-    name: 'Alice',
-    age: 29,
-    sex: 0,
-  },
-  {
-    name: 'Tom',
-    age: 27,
-    sex: 1,
-  },
-  {
-    name: 'Jerry',
-    age: 26,
-    sex: 0,
-  },
-  {
-    name: 'Jerry1',
-    age: 26,
-    sex: 0,
-  },
-  {
-    name: 'Jerry2',
-    age: 26,
-    sex: 0,
-  },
-  {
-    name: 'Jerry3',
-    age: 26,
-    sex: 0,
-  },
-  {
-    name: 'Jerry4',
-    age: 26,
-    sex: 0,
-  },
-  {
-    name: 'Jerry5',
-    age: 26,
-    sex: 0,
-  },
-  {
-    name: 'Jerry6',
-    age: 26,
-    sex: 0,
-  },
-  {
-    name: 'Jerry7',
-    age: 7,
-    sex: 0,
-  },
-  {
-    name: 'Jerry8',
-    age: 5,
-    sex: 0,
-  },
-  {
-    name: 'Jerry9',
-    age: 12,
-    sex: 0,
-  },
-  {
-    name: 'Jerry10',
-    age: 88,
-    sex: 0,
-  },
-  {
-    name: 'Jerry11',
-    age: 77,
-    sex: 0,
-  },
-  {
-    name: 'Jerry12',
-    age: 66,
-    sex: 0,
-  },
-  {
-    name: 'Jerry13',
-    age: 26,
-    sex: 0,
-  },
-  {
-    name: 'Jerry14',
-    age: 24,
-    sex: 0,
-  },
-  {
-    name: 'Jerry15',
-    age: 13,
-    sex: 0,
-  },
-  {
-    name: 'Jerry16',
-    age: 31,
-    sex: 0,
-  },
-  {
-    name: 'Jerry17',
-    age: 33,
-    sex: 0,
-  },
-  {
-    name: 'Jerry18',
-    age: 22,
-    sex: 0,
-  },
-  {
-    name: 'Jerry19',
-    age: 17,
-    sex: 0,
-  },
-  {
-    name: 'Jerry20',
-    age: 16,
-    sex: 0,
-  },
-  {
-    name: 'Jerry21',
-    age: 15,
-    sex: 0,
-  },
-  {
-    name: 'Jerry22',
-    age: 14,
-    sex: 0,
-  },
-  {
-    name: 'Jerry23',
-    age: 13,
-    sex: 0,
-  },
-  {
-    name: 'Jerry24',
-    age: 12,
-    sex: 0,
-  },
-  {
-    name: 'Jerry25',
-    age: 11,
-    sex: 0,
-  },
-]
+const data = cloneDeep(mockTableData.slice(0, 50))
 
 export default defineComponent({
   name: 'App',
@@ -176,38 +36,28 @@ export default defineComponent({
     TestTable,
   },
   setup() {
-    const tableData = reactive(staffMockData)
-    const tableColumns = reactive([
-      {
-        name: 'name',
-        title: '姓名',
-      },
-      {
-        name: 'age',
-        title: '年龄',
-        canSort: true,
-      },
-      {
-        name: 'sex',
-        title: '性别',
-        renderFn: (val: Sex) => {
-          return val ? '男' : '女'
-        },
-      },
-    ])
-    const tablePagination = reactive({
+    const tableData = ref(data)
+    const tableColumns = ref(mockTableColumns)
+    const tableFilters = ref(['name', 'age', 'sex'])
+    const tablePagination = ref({
       pageSize: 10, // 每页大小
       pageIndex: 1, // 当前页码
     })
     const deleteItem = (item: Staff) => {
-      const deleteIndex = tableData.findIndex(data => data.name === item.name)
-      tableData.splice(deleteIndex, 1)
+      const deleteIndex = tableData.value.findIndex(data => data.name === item.name)
+      tableData.value.splice(deleteIndex, 1)
     }
     const addItem = () => {
       alert('add')
     }
 
-    return { tableData, tableColumns, tablePagination, deleteItem, addItem }
+    return { tableData, tableColumns, tableFilters, tablePagination, deleteItem, addItem }
   },
 })
 </script>
+<style lang="less" scoped>
+.table_demo {
+  width: 80%;
+  margin: 50px auto;
+}
+</style>

@@ -2,7 +2,6 @@ module.exports = {
   // u can change this option to a more specific folder for test single component or util when dev
   // for example, ['<rootDir>/packages/components/button']
   roots: ['<rootDir>/src/'],
-  setupFiles: ['<rootDir>/jest.setup.js'],
 
   testEnvironment: 'jsdom',
   transform: {
@@ -30,30 +29,15 @@ module.exports = {
         ],
       },
     ],
-    '^.+\\.(js|ts)$': [
-      'babel-jest',
-      {
-        presets: [
-          [
-            '@babel/preset-env',
-            {
-              targets: {
-                node: true,
-              },
-            },
-          ],
-          '@babel/preset-typescript',
-        ],
-      },
-    ],
   },
-  transformIgnorePatterns: ['<rootDir>/node_modules/(?!(lodash-es|other-es-lib))'],
   globals: {
     __DEV__: true,
   },
   moduleNameMapper: {
     '^@tests': '<rootDir>/tests',
     '^@tests/(.*)$': '<rootDir>/tests/$1',
+    '^lodash-es': 'lodash',
+    '\\.(css|less|scss|sss|styl)$': 'jest-css-modules',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'json', 'vue', 'node'],
   collectCoverage: true,
@@ -66,6 +50,6 @@ module.exports = {
       statements: 85,
     },
   },
-  coveragePathIgnorePatterns: ['/node_modules/', '<rootDir>/tests'],
+  coveragePathIgnorePatterns: ['/node_modules/', '<rootDir>/tests', '<rootDir>/src/table/types.ts'],
   reporters: ['default', 'jest-junit'],
 }

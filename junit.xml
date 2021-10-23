@@ -1,3 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="0" failures="0" errors="0" time="0.959">
+<testsuites name="jest tests" tests="6" failures="0" errors="0" time="1.361">
+  <testsuite name="Table" errors="0" failures="0" skipped="0" timestamp="2021-10-23T16:27:18" time="0.656" tests="6">
+    <testcase classname="Table 开始测试" name="Table 开始测试" time="0.001">
+    </testcase>
+    <testcase classname="Table render Default" name="Table render Default" time="0.035">
+    </testcase>
+    <testcase classname="Table props test" name="Table props test" time="0.039">
+    </testcase>
+    <testcase classname="Table sort data" name="Table sort data" time="0.029">
+    </testcase>
+    <testcase classname="Table filter data test" name="Table filter data test" time="0.015">
+    </testcase>
+    <testcase classname="Table pagination test" name="Table pagination test" time="0.08">
+    </testcase>
+  </testsuite>
 </testsuites>

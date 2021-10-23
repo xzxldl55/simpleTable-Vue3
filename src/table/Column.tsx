@@ -1,5 +1,5 @@
-import { defineComponent } from '@vue/composition-api';
-import { columnProps } from './types';
+import { defineComponent, computed } from '@vue/composition-api';
+import { columnProps, ColumnPublicProps } from './types';
 
 export default defineComponent({
     name: 'TableColumn',
@@ -8,6 +8,8 @@ export default defineComponent({
         const title = props.title
         const name = props.name
         const canSort = props.canSort
+        const classes = useClass(props)
+        
         const emitSort = () => {
             emit('click', name);
         }
@@ -17,7 +19,8 @@ export default defineComponent({
                     { title }
                     {
                         canSort ?
-                        <span class="column-sort"
+                        // 区分一下上下高亮
+                        <span class={classes.value}
                               onClick={emitSort}></span> :
                         ''
                     }
@@ -26,3 +29,13 @@ export default defineComponent({
         }
     }
 })
+
+const useClass = (props: ColumnPublicProps) => {
+    return computed(() => {
+        return {
+            'column-sort': true,
+            'des': props.sortConf?.sortKey === props.name && !props.sortConf?.sort,
+            'asc': props.sortConf?.sortKey === props.name && props.sortConf?.sort,
+        }
+    })
+}
