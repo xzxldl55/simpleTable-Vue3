@@ -123,7 +123,7 @@ describe('Table', () => {
     expect(wrapper.findAll('.simple-table tbody > tr').length).toEqual(100)
 
     // 切换页码 -- 跳转到第五页
-    await wrapper.find('.simple-table .pagination-btn:last-child').trigger('click')
+    await wrapper.find('.simple-table .pagination-btn:nth-child(6)').trigger('click')
     expect(wrapper.find('.simple-table .pagination-btn.on').element.innerHTML).toEqual('5')
   })
 })

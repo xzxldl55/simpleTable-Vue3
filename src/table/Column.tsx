@@ -1,5 +1,5 @@
 import { defineComponent, computed } from '@vue/composition-api';
-import { columnProps, ColumnPublicProps } from './types';
+import { columnProps, TSortState } from './types';
 
 export default defineComponent({
     name: 'TableColumn',
@@ -8,7 +8,7 @@ export default defineComponent({
         const title = props.title
         const name = props.name
         const canSort = props.canSort
-        const classes = useClass(props)
+        const classes = useClass(props.sortState, props.name)
         
         const emitSort = () => {
             emit('click', name);
@@ -30,12 +30,12 @@ export default defineComponent({
     }
 })
 
-const useClass = (props: ColumnPublicProps) => {
+const useClass = (sortState: TSortState, name: string) => {
     return computed(() => {
         return {
             'column-sort': true,
-            'des': props.sortConf?.sortKey === props.name && !props.sortConf?.sort,
-            'asc': props.sortConf?.sortKey === props.name && props.sortConf?.sort,
+            'des': sortState.name === name && !sortState.direction,
+            'asc': sortState.name === name && sortState.direction,
         }
     })
 }

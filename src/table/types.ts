@@ -26,17 +26,34 @@ export type IxPublicPropTypes<O> = O extends object
   ? { [K in PublicRequiredKeys<O>]: InferPropType<O[K]> } & { [K in PublicOptionalKeys<O>]?: InferPropType<O[K]> }
   : { [K in string]: any }
 
-export type paginationType = {
+export interface paginationType {
   pageIndex: number
   pageSize: number
 }
 
+export type tableState = {
+  data: Record<string, any>[]
+  filters: string[]
+  columns: ColumnPublicProps[]
+  showHeader: boolean
+}
+
+export type TSortState = {
+  name: string
+  direction: 0 | 1
+}
+
+export type TFilterState = {
+  filter: string
+  searchValue: string
+}
+
+export interface TPageConf extends paginationType {
+  count: number // 数据条目总数
+}
+
 // Props 定义在这里
 export const tableProps = {
-  test: {
-    type: Boolean,
-    default: false,
-  },
   data: { // 表格数据
     type: Array as PropType<Record<string, any>>,
     default: (): Array<Record<string, any>> => {
@@ -73,29 +90,27 @@ export const tableProps = {
   },
 }
 export const columnProps = {
-  title: { // 列标题
-    type: String,
-    default: '',
-  },
   name: { // 列名 --> 即唯一标识id
     type: String,
     default: '',
     required: true,
+  },
+  title: { // 列标题
+    type: String,
+    default: '',
   },
   canSort: {
     type: Boolean,
     default: false,
   },
   renderFn: {
-    type: Function,
-    default: () => {
-      return (): void => {}
-    },
+    type: Function || undefined,
+    default: undefined,
   },
-  sortConf: {
-    type: Object as PropType<{ sortKey: string; sort: boolean }>,
-    default: (): { sortKey: string; sort: boolean } => {
-      return { sortKey: '', sort: false }
+  sortState: {
+    type: Object as PropType<TSortState>,
+    default: (): TSortState => {
+      return { name: '', direction: 0 }
     },
   },
 }

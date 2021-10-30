@@ -44,6 +44,33 @@ th, td {
     text-align: center;
 }
 
+/* 表头 */
+.table-search-container {
+    line-height: 32px;
+    padding: 4px 0;
+}
+.table-search-container .table-search-select {
+    line-height: 32px;
+    height: 32px;
+    width: 80px;
+    border: 1px solid #dcdfe6;
+    padding: 0 16px 0 8px;
+    box-sizing: border-box;
+    color: #606266;
+}
+.table-search-container .table-search-input {
+    height: 32px;
+    box-sizing: border-box;
+    border: 1px solid #dcdfe6;
+    border-left-color: transparent;
+    color: #606266;
+    outline: none;
+    transition: .5s;
+}
+.table-search-container .table-search-input:hover, .table-search-input:focus {
+    border: 1px solid #39f;
+}
+
 /* 列头 */
 .column-sort {
     position: relative;
@@ -84,6 +111,7 @@ th, td {
     height: 32px;
     text-align: center;
     line-height: 32px;
+    background-color: #fff;
     color: #657180;
     border: 1px solid #d7dde4;
     margin-right: 8px;

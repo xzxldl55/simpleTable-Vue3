@@ -10,9 +10,9 @@
       <template #operator="{ item }">
         <a class="mr-1"
            href="javascript:void(0)"
-           @click="addItem"
-        >新增</a>
-        <a href="javascript:void(0)" @click="deleteItem(item)">删除</a>
+           @click="addItem">新增</a>
+        <a href="javascript:void(0)"
+           @click="deleteItem(item)">删除</a>
       </template>
     </TestTable>
   </div>
@@ -38,7 +38,7 @@ export default defineComponent({
   setup() {
     const tableData = ref(data)
     const tableColumns = ref(mockTableColumns)
-    const tableFilters = ref(['name', 'age', 'sex'])
+    const tableFilters = ref(['name', 'age', 'sex', 'aa'])
     const tablePagination = ref({
       pageSize: 10, // 每页大小
       pageIndex: 1, // 当前页码
