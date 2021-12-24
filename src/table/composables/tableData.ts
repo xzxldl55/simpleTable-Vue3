@@ -5,17 +5,40 @@
 
 import { Ref, computed } from '@vue/composition-api'
 import { sortBy } from 'lodash-es'
-import { TFilterState, TPageConf, TSortState, tableState } from '../types'
+import { SafeAny, TFilterState, TPageConf, TSortState, tableState } from '../../types'
 
 const useTableData = (
   state: tableState,
   sortState: TSortState,
   filterState: TFilterState,
-  pageState: false | TPageConf,
-): Ref<Array<Record<string, unknown>>> => {
+  pageState: TPageConf | undefined,
+  setPageCount: (count: number) => void,
+): Ref<Record<string, SafeAny>[]> => {
   const tableData = computed(() => {
-    let resData = state.data || []
 
+    // [TODO]: 后续添加远程表格处理
+    // if (state.loadApi) {
+    //   // 收集远程表格参数
+    //   const params: TLoadApiParams = {
+    //     filter: filterState.filter,
+    //     searchValue: filterState.searchValue,
+    //     name: sortState.name,
+    //     direction: sortState.direction,
+    //     pageIndex: 0,
+    //     pageSize: 0,
+    //   }
+
+    //   let { data, count } = await state.loadApi(params) // Promise化改造 --> 针对Promise化后可能出现的响应性丢失问题，可以在watchEffect内部执行useTableData来收集依赖
+
+    //   data = state.handleResData ? state.handleResData(data) : data // props - 对最终得到数据做处理
+
+    //   setPageCount(count) // 更新条目总数 --> 更新分页器按钮个数
+
+    //   return data
+    // }
+
+    // 以下皆为本地数据展示功能项
+    let resData = state.data || []
     const { filter, searchValue } = filterState
 
     // 1. filter & searchValue 按照关键词过滤数据
@@ -36,7 +59,7 @@ const useTableData = (
     }
 
     // 3. 更新数据条目总数 --> 更新页码数（PS：注意需要放在最后一个对resData赋值语句之后 return 跳出之前，确保数据准确性）
-    pageState.count = resData.length
+    setPageCount(resData.length)
 
     // 4. 获取当前分页配置
     const start = (pageState.pageIndex - 1) * pageState.pageSize
@@ -45,8 +68,8 @@ const useTableData = (
     // 5. 检测是否需要按某列排序
     if (sortState.name) {
       return sortState.direction ?
-        sortBy(resData, (obj: Record<string, unknown>) => obj[sortState.name]).slice(start, end) :
-        sortBy(resData, (obj: Record<string, unknown>) => obj[sortState.name]).reverse().slice(start, end)
+        sortBy(resData, (obj: Record<string, SafeAny>) => obj[sortState.name]).slice(start, end) :
+        sortBy(resData, (obj: Record<string, SafeAny>) => obj[sortState.name]).reverse().slice(start, end)
     }
 
     // 6. 最终返回当前页数据

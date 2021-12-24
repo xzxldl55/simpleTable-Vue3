@@ -1,14 +1,14 @@
 import { defineComponent, computed } from '@vue/composition-api';
-import { columnProps, TSortState } from './types';
+import { columnProps, TSortState } from '../../types';
 
 export default defineComponent({
     name: 'TableColumn',
     props: columnProps,
-    setup (props, { slots, emit }) {
+    setup (props, { emit }) {
         const title = props.title
-        const name = props.name
+        const name = props.name as string
         const canSort = props.canSort
-        const classes = useClass(props.sortState, props.name)
+        const classes = useClass(props.sortState, name)
         
         const emitSort = () => {
             emit('click', name);

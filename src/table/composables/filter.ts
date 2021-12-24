@@ -3,17 +3,16 @@
  */
 
 import { reactive } from '@vue/composition-api'
-import { TFilterState } from '../types'
+import { TFilterState } from '../../types'
 import debug from 'debug'
 
 const DEBUG = debug('table:filter')
 
 type filterHook = {
-  filterState: TFilterState
   search: (filter: string, searchValue: string) => void
 }
 
-const useFilter = (selected: string): filterHook => {
+const useFilter = (selected: string): [TFilterState, filterHook] => {
   const filterState = reactive({
     filter: selected,
     searchValue: '',
@@ -25,10 +24,10 @@ const useFilter = (selected: string): filterHook => {
     DEBUG(`filter data, filter is ${filterState.filter} searchValue is ${filterState.searchValue}`)
   }
 
-  return {
+  return [
     filterState,
-    search,
-  }
+    { search },
+  ]
 }
 
 export default useFilter

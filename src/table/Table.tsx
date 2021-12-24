@@ -3,15 +3,16 @@
  */
 
 import { computed, ComputedRef, defineComponent, reactive, Ref, watch } from '@vue/composition-api'
-import { TablePublicProps, tableProps, paginationType, ColumnPublicProps, tableState, TSortState, TFilterState, TPageConf } from './types'
-import Column from './Column'
+import { TablePublicProps, tableProps, ColumnPublicProps, tableState, TSortState, TFilterState, TPageConf, SafeAny } from '../types'
+import Column from './components/Column'
 import debug from 'debug'
-import useSort from './hooks/sort'
-import useFilter from './hooks/filter'
-import usePagination from './hooks/pagination'
+import useSort from './composables/sort'
+import useFilter from './composables/filter'
+import usePagination from './composables/pagination'
 import { VNode } from 'vue'
-import useTableData from './hooks/tableData'
+import useTableData from './composables/tableData'
 import { intersection } from 'lodash-es'
+import './index.css'
 
 const DEBUG = debug('table:body')
 const DEBUG_ERROR = debug('table:error')
@@ -24,20 +25,26 @@ export default defineComponent({
     const state: tableState = reactive({
       data: props.data as Record<string, any>[],
       columns: props.columns as ColumnPublicProps[],
-      filters: props.filters as unknown as string[],
+      filters: props.filters as SafeAny as string[],
       showHeader: props.showHeader as boolean,
     })
     const style = useStyle(props)
-    const { sortState, handleSort } = useSort()
-    const { filterState, search } = useFilter(props.filters?.length ? (props.filters[0] as string) : '')
-    const {
+    const [sortState, { handleSort }] = useSort()
+    const [
       pageState,
-      pageBtnSize,
-      changePage,
-      goBefore,
-      goNext,
-    } = usePagination(props.pagination as unknown as paginationType | false)
-    const tableData = useTableData(state, sortState, filterState, pageState) // 获取当前页table数据【关联props.data, 分页，排序，筛选】
+      {
+        pageBtnSize,
+        changePage,
+        goBefore,
+        goNext,
+        setPageCount,
+      },
+    ] = usePagination(props.pagination, state.data.length)
+    const selectedFilter = computed(() => {
+      return props.filters?.length ? (props.filters[0] as string) : ''
+    })
+    const [filterState, { search }] = useFilter(selectedFilter.value)
+    const tableData = useTableData(state, sortState, filterState, pageState, setPageCount) // 获取当前页table数据【关联props.data, 分页，排序，筛选】
 
     // 监听数据变动，输出日志
     watch(tableData, (): void => {
@@ -45,28 +52,22 @@ export default defineComponent({
     })
 
     return () => {
+      const header = renderHeader(state.filters, filterState, search)
+      const columns = renderColumns(state, slots, sortState, handleSort)
+      const body = renderBody(slots, tableData, style, state)
+      const pagination = pageState ? renderPagination(pageState, pageBtnSize, changePage, goBefore, goNext) : ''
       return (
         <div class="simple-table">
           {/* 表头 */}
-          {
-            renderHeader(state.filters, filterState, search)
-          }
+          {header}
           <table>
             {/* 表格列 */}
-            {
-              renderColumns(state, slots, sortState, handleSort)
-            }
+            {columns}
             {/* 表格主体 */}
-            {
-              renderBody(slots, tableData, style, state)
-            }
+            {body}
             {/* 分页器 */}
             <div class="pagination center">
-              {
-                pageState ?
-                  renderPagination(pageState, pageBtnSize, changePage, goBefore, goNext) :
-                  ''
-              }
+              {pagination}
             </div>
           </table>
         </div>
@@ -77,10 +78,10 @@ export default defineComponent({
 
 // 处理参数传输异常处理（非类型限制类型的内容型错误）
 function handlePropsError (props: TablePublicProps) {
-  const columnsName = props.columns.map(column => column.name)
+  const columnsName = props?.columns?.map(column => column.name)
 
   // 相同列名
-  if (columnsName.length !== new Set(columnsName).size) {
+  if ((columnsName as string[]).length !== new Set(columnsName).size) {
     const error = 'Column name can not the same'
     DEBUG_ERROR(error)
     throw Error(error)
@@ -104,7 +105,11 @@ function useStyle(props: TablePublicProps) {
 }
 
 // 表格工具栏渲染
-function renderHeader(filters: string[], filterState: TFilterState, search: (filter: string, searchValue: string) => void) {
+function renderHeader(
+  filters: string[],
+  filterState: TFilterState,
+  search: (filter: string, searchValue: string) => void,
+) {
   const onInputKeydown = (e: KeyboardEvent) => {
     const target = e.target as HTMLInputElement
     if (e.code === 'Enter') { // 按下Enter后进行搜索
@@ -153,7 +158,7 @@ function renderColumns(
       <tr>
         {
           state.columns.map((column) => {
-            const slotColumn = slots[column.name || '']
+            const slotColumn = slots[column.name as string]
 
             // 可支持slot[columns.name]自定义配置表头
             return slotColumn ?
@@ -177,7 +182,7 @@ function renderColumns(
 
 function renderBody(
   slots: Readonly<{ [name: string]: ((...args: any[]) => VNode[]) | undefined }>,
-  tableData: Ref<Record<string, unknown>[]>,
+  tableData: Ref<Record<string, SafeAny>[]>,
   style: ComputedRef<{ maxHeight: string }>,
   state: { data?: Record<string, any>[]; filters?: string[]; columns: any; showHeader?: boolean }
 ) {
@@ -195,7 +200,7 @@ function renderBody(
                 })
               }
               {/* 操作列渲染 */}
-              <td class="center">
+              <td class="table-body-operator center">
                 {slots.operator ? slots.operator({ item }) : ''}
               </td>
             </tr>
@@ -219,7 +224,7 @@ function renderPagination(
         onClick={goBefore}>&lt;</button>
       {
         new Array(pageBtnSize.value).fill(1).map((v, i) => {
-          return <button class={['pagination-btn', { 'on': pageState.pageIndex === i + 1 }]}
+          return <button class={['pagination-btn', { 'page-on': pageState.pageIndex === i + 1 }]}
             onClick={changePage.bind(null, i + 1)}>{i + 1}</button>
         })
       }

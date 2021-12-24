@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="6" failures="0" errors="0" time="1.527">
-  <testsuite name="Table" errors="0" failures="0" skipped="0" timestamp="2021-10-30T10:16:27" time="0.798" tests="6">
+<testsuites name="jest tests" tests="8" failures="0" errors="0" time="2.346">
+  <testsuite name="Table" errors="0" failures="0" skipped="0" timestamp="2021-11-05T05:10:49" time="1.557" tests="8">
     <testcase classname="Table 开始测试" name="Table 开始测试" time="0.001">
     </testcase>
-    <testcase classname="Table render Default" name="Table render Default" time="0.034">
+    <testcase classname="Table render Default" name="Table render Default" time="0.045">
     </testcase>
-    <testcase classname="Table props test" name="Table props test" time="0.038">
+    <testcase classname="Table props test" name="Table props test" time="0.37">
     </testcase>
-    <testcase classname="Table sort data" name="Table sort data" time="0.025">
+    <testcase classname="Table sort data" name="Table sort data" time="0.055">
     </testcase>
-    <testcase classname="Table filter data test" name="Table filter data test" time="0.018">
+    <testcase classname="Table filter data test" name="Table filter data test" time="0.049">
     </testcase>
-    <testcase classname="Table pagination test" name="Table pagination test" time="0.093">
+    <testcase classname="Table pagination test" name="Table pagination test" time="0.09">
+    </testcase>
+    <testcase classname="Table slot test" name="Table slot test" time="0.04">
+    </testcase>
+    <testcase classname="Table error handle" name="Table error handle" time="0.041">
     </testcase>
   </testsuite>
 </testsuites>

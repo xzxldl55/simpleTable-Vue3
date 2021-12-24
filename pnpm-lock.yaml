@@ -19,7 +19,7 @@ devDependencies:
   '@vitejs/plugin-legacy': registry.npmmirror.com/@vitejs/plugin-legacy/1.6.2_vite@2.6.7
   '@vue/eslint-config-typescript': registry.npmmirror.com/@vue/eslint-config-typescript/7.0.0_b1c40b501c70e0dc0050a49887752d81
   '@vue/test-utils': registry.npmmirror.com/@vue/test-utils/1.2.2_9065e7474e033a8e4b95615fc8e6c36c
-  axios: registry.npmmirror.com/axios/0.21.4
+  axios: registry.npmmirror.com/axios/0.21.4_debug@4.3.2
   babel-core: 6.26.3
   babel-plugin-syntax-jsx: registry.nlark.com/babel-plugin-syntax-jsx/6.18.0
   babel-plugin-transform-vue-jsx: registry.nlark.com/babel-plugin-transform-vue-jsx/3.7.0
@@ -5126,11 +5126,19 @@ packages:
       registry: https://registry.npm.taobao.org/
       tarball: https://registry.nlark.com/flatted/download/flatted-3.2.2.tgz
     version: 3.2.2
-  registry.nlark.com/follow-redirects/1.14.4:
+  registry.nlark.com/follow-redirects/1.14.4_debug@4.3.2:
+    dependencies:
+      debug: registry.nlark.com/debug/4.3.2
     dev: true
     engines:
       node: '>=4.0'
+    id: registry.nlark.com/follow-redirects/1.14.4
     name: follow-redirects
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
     resolution:
       integrity: sha1-g4/fSKi73XnlLuUfsclOPtmLk3k=
       registry: https://registry.npm.taobao.org/
@@ -7099,11 +7107,14 @@ packages:
       registry: https://registry.npm.taobao.org/
       tarball: https://registry.npmmirror.com/@vue/test-utils/download/@vue/test-utils-1.2.2.tgz
     version: 1.2.2
-  registry.npmmirror.com/axios/0.21.4:
+  registry.npmmirror.com/axios/0.21.4_debug@4.3.2:
     dependencies:
-      follow-redirects: registry.nlark.com/follow-redirects/1.14.4
+      follow-redirects: registry.nlark.com/follow-redirects/1.14.4_debug@4.3.2
     dev: true
+    id: registry.npmmirror.com/axios/0.21.4
     name: axios
+    peerDependencies:
+      debug: '*'
     resolution:
       integrity: sha1-xnuQ3AVo5cHPKwuFjEO6KOLtpXU=
       registry: https://registry.npm.taobao.org/
@@ -8773,7 +8784,7 @@ packages:
     resolution:
       integrity: sha1-LNAaGh8WBwTTEB/VpY/w+fy4Aww=
       registry: https://registry.npm.taobao.org/
-      tarball: https://registry.npmmirror.com/typescript/download/typescript-4.4.4.tgz
+      tarball: https://registry.npmmirror.com/typescript/download/typescript-4.4.4.tgz?cache=0&sync_timestamp=1635925582766&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Ftypescript%2Fdownload%2Ftypescript-4.4.4.tgz
     version: 4.4.4
   registry.npmmirror.com/unplugin-vue-components/0.15.6_vite@2.6.7+vue@2.6.14:
     dependencies:
@@ -9049,7 +9060,7 @@ specifiers:
   lodash-es: ^4.17.21
   ts-node: ^10.2.1
   tslib: ^2.3.1
-  typescript: ^4.4.3
+  typescript: ^4.4.4
   unplugin-vue-components: ^0.15.4
   unplugin-vue2-script-setup: ^0.6.4
   vite: ^2.5.7

@@ -5,7 +5,6 @@
       :columns="tableColumns"
       :pagination="tablePagination"
       :filters="tableFilters"
-      :max-height="240"
     >
       <template #operator="{ item }">
         <a class="mr-1"
@@ -19,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { TestTable } from '../src/table'
+import { TestTable } from '../src/index'
 import { defineComponent, ref } from '@vue/composition-api'
 import {
   Staff,
@@ -36,13 +35,13 @@ export default defineComponent({
     TestTable,
   },
   setup() {
-    const tableData = ref(data)
+    const tableData = ref<Record<string, unknown>[]>(data)
     const tableColumns = ref(mockTableColumns)
-    const tableFilters = ref(['name', 'age', 'sex', 'aa'])
-    const tablePagination = ref({
+    const tableFilters = ['name', 'age', 'sex']
+    const tablePagination = {
       pageSize: 10, // 每页大小
       pageIndex: 1, // 当前页码
-    })
+    }
     const deleteItem = (item: Staff) => {
       const deleteIndex = tableData.value.findIndex(data => data.name === item.name)
       tableData.value.splice(deleteIndex, 1)

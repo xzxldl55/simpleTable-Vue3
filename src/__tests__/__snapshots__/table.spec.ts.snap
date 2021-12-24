@@ -22,65 +22,65 @@ exports[`Table render Default 1`] = `
         <td column-data-name=\\"name\\" title=\\"Jerry0\\">Jerry0</td>
         <td column-data-name=\\"age\\" title=\\"1\\">1</td>
         <td column-data-name=\\"sex\\" title=\\"女\\">女</td>
-        <td class=\\"center\\"></td>
+        <td class=\\"table-body-operator center\\"></td>
       </tr>
       <tr>
         <td column-data-name=\\"name\\" title=\\"Jerry1\\">Jerry1</td>
         <td column-data-name=\\"age\\" title=\\"2\\">2</td>
         <td column-data-name=\\"sex\\" title=\\"男\\">男</td>
-        <td class=\\"center\\"></td>
+        <td class=\\"table-body-operator center\\"></td>
       </tr>
       <tr>
         <td column-data-name=\\"name\\" title=\\"Jerry2\\">Jerry2</td>
         <td column-data-name=\\"age\\" title=\\"3\\">3</td>
         <td column-data-name=\\"sex\\" title=\\"女\\">女</td>
-        <td class=\\"center\\"></td>
+        <td class=\\"table-body-operator center\\"></td>
       </tr>
       <tr>
         <td column-data-name=\\"name\\" title=\\"Jerry3\\">Jerry3</td>
         <td column-data-name=\\"age\\" title=\\"4\\">4</td>
         <td column-data-name=\\"sex\\" title=\\"男\\">男</td>
-        <td class=\\"center\\"></td>
+        <td class=\\"table-body-operator center\\"></td>
       </tr>
       <tr>
         <td column-data-name=\\"name\\" title=\\"Jerry4\\">Jerry4</td>
         <td column-data-name=\\"age\\" title=\\"5\\">5</td>
         <td column-data-name=\\"sex\\" title=\\"女\\">女</td>
-        <td class=\\"center\\"></td>
+        <td class=\\"table-body-operator center\\"></td>
       </tr>
       <tr>
         <td column-data-name=\\"name\\" title=\\"Jerry5\\">Jerry5</td>
         <td column-data-name=\\"age\\" title=\\"6\\">6</td>
         <td column-data-name=\\"sex\\" title=\\"男\\">男</td>
-        <td class=\\"center\\"></td>
+        <td class=\\"table-body-operator center\\"></td>
       </tr>
       <tr>
         <td column-data-name=\\"name\\" title=\\"Jerry6\\">Jerry6</td>
         <td column-data-name=\\"age\\" title=\\"7\\">7</td>
         <td column-data-name=\\"sex\\" title=\\"女\\">女</td>
-        <td class=\\"center\\"></td>
+        <td class=\\"table-body-operator center\\"></td>
       </tr>
       <tr>
         <td column-data-name=\\"name\\" title=\\"Jerry7\\">Jerry7</td>
         <td column-data-name=\\"age\\" title=\\"8\\">8</td>
         <td column-data-name=\\"sex\\" title=\\"男\\">男</td>
-        <td class=\\"center\\"></td>
+        <td class=\\"table-body-operator center\\"></td>
       </tr>
       <tr>
         <td column-data-name=\\"name\\" title=\\"Jerry8\\">Jerry8</td>
         <td column-data-name=\\"age\\" title=\\"9\\">9</td>
         <td column-data-name=\\"sex\\" title=\\"女\\">女</td>
-        <td class=\\"center\\"></td>
+        <td class=\\"table-body-operator center\\"></td>
       </tr>
       <tr>
         <td column-data-name=\\"name\\" title=\\"Jerry9\\">Jerry9</td>
         <td column-data-name=\\"age\\" title=\\"10\\">10</td>
         <td column-data-name=\\"sex\\" title=\\"男\\">男</td>
-        <td class=\\"center\\"></td>
+        <td class=\\"table-body-operator center\\"></td>
       </tr>
     </tbody>
     <div class=\\"pagination center\\">
-      <div><button class=\\"pagination-btn\\">&lt;</button><button class=\\"pagination-btn on\\">1</button><button class=\\"pagination-btn\\">&gt;</button></div>
+      <div><button class=\\"pagination-btn\\">&lt;</button><button class=\\"pagination-btn page-on\\">1</button><button class=\\"pagination-btn\\">2</button><button class=\\"pagination-btn\\">3</button><button class=\\"pagination-btn\\">4</button><button class=\\"pagination-btn\\">5</button><button class=\\"pagination-btn\\">6</button><button class=\\"pagination-btn\\">7</button><button class=\\"pagination-btn\\">8</button><button class=\\"pagination-btn\\">9</button><button class=\\"pagination-btn\\">10</button><button class=\\"pagination-btn\\">11</button><button class=\\"pagination-btn\\">12</button><button class=\\"pagination-btn\\">13</button><button class=\\"pagination-btn\\">14</button><button class=\\"pagination-btn\\">15</button><button class=\\"pagination-btn\\">16</button><button class=\\"pagination-btn\\">17</button><button class=\\"pagination-btn\\">18</button><button class=\\"pagination-btn\\">19</button><button class=\\"pagination-btn\\">20</button><button class=\\"pagination-btn\\">21</button><button class=\\"pagination-btn\\">22</button><button class=\\"pagination-btn\\">23</button><button class=\\"pagination-btn\\">24</button><button class=\\"pagination-btn\\">25</button><button class=\\"pagination-btn\\">26</button><button class=\\"pagination-btn\\">27</button><button class=\\"pagination-btn\\">28</button><button class=\\"pagination-btn\\">29</button><button class=\\"pagination-btn\\">30</button><button class=\\"pagination-btn\\">31</button><button class=\\"pagination-btn\\">32</button><button class=\\"pagination-btn\\">33</button><button class=\\"pagination-btn\\">34</button><button class=\\"pagination-btn\\">35</button><button class=\\"pagination-btn\\">36</button><button class=\\"pagination-btn\\">37</button><button class=\\"pagination-btn\\">38</button><button class=\\"pagination-btn\\">39</button><button class=\\"pagination-btn\\">40</button><button class=\\"pagination-btn\\">41</button><button class=\\"pagination-btn\\">42</button><button class=\\"pagination-btn\\">43</button><button class=\\"pagination-btn\\">44</button><button class=\\"pagination-btn\\">45</button><button class=\\"pagination-btn\\">46</button><button class=\\"pagination-btn\\">47</button><button class=\\"pagination-btn\\">48</button><button class=\\"pagination-btn\\">49</button><button class=\\"pagination-btn\\">50</button><button class=\\"pagination-btn\\">&gt;</button></div>
     </div>
   </table>
 </div>"

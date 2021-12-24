@@ -12,13 +12,18 @@ export type Staff = {
 //   return new Array(6).fill(1).map((v, i) => i ? getRandomLetter() : getRandomLetter().toUpperCase()).join('')
 // }
 
-export const mockTableData: Staff[] = new Array(500).fill(1).map((v, i) => ({
+const mockTableData: Staff[] = new Array(499).fill(1).map((v, i) => ({
   name: `Jerry${i}`, // 这里为了便于测试totoMatchSnapshot不报错，就不使用Random生成的名字
   age: Math.min(100, i + 1),
   sex: i % 2 === 0 ? 0 : 1,
 }))
+mockTableData.push({
+  name: '',
+  age: 15,
+  sex: 0,
+})
 
-export const mockTableColumns = [
+const mockTableColumns = [
   {
     name: 'name',
     title: '姓名',
@@ -37,3 +42,8 @@ export const mockTableColumns = [
     },
   },
 ]
+
+export {
+  mockTableData,
+  mockTableColumns,
+}

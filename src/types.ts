@@ -26,6 +26,8 @@ export type IxPublicPropTypes<O> = O extends object
   ? { [K in PublicRequiredKeys<O>]: InferPropType<O[K]> } & { [K in PublicOptionalKeys<O>]?: InferPropType<O[K]> }
   : { [K in string]: any }
 
+export type SafeAny = any;
+
 export interface paginationType {
   pageIndex: number
   pageSize: number
@@ -56,16 +58,10 @@ export interface TPageConf extends paginationType {
 export const tableProps = {
   data: { // 表格数据
     type: Array as PropType<Record<string, any>>,
-    default: (): Array<Record<string, any>> => {
-      return []
-    },
     required: true,
   },
   columns: { // 列数据
     type: Array as PropType<ColumnPublicProps[]>,
-    default: (): ColumnPublicProps[] => {
-      return []
-    },
     required: true,
   },
   showHeader: { // 是否显示表头
@@ -73,18 +69,18 @@ export const tableProps = {
     default: true,
   },
   pagination: { // 分页配置
-    type: [Object as PropType<paginationType>, false],
-    default: (): paginationType | false => {
-      return false
+    type: Object as PropType<paginationType>,
+    default: (): paginationType | undefined => {
+      return undefined
     },
   },
   maxHeight: { // 表格体最大高度配置（默认按照内容撑开即高度为auto，配置后超出限制则滚动页面）
-    type: [Number, String],
+    type: Number|| String,
     default: -1,
   },
   filters: { // 可筛选字段
-    type: Array,
-    default: (): Array<string> => {
+    type: Array as PropType<string[]>,
+    default: (): string[] => {
       return []
     },
   },
@@ -92,7 +88,6 @@ export const tableProps = {
 export const columnProps = {
   name: { // 列名 --> 即唯一标识id
     type: String,
-    default: '',
     required: true,
   },
   title: { // 列标题
@@ -115,9 +110,7 @@ export const columnProps = {
   },
 }
 
-
 export type TablePublicProps = IxPublicPropTypes<typeof tableProps>
 export type ColumnPublicProps = IxPublicPropTypes<typeof columnProps>
-
 
 

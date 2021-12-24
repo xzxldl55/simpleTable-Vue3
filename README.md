@@ -1,6 +1,12 @@
 # TestTable简易表格组件
 
+## 预览
+
 ![预览图](./shotcut.png)
+
+## 单测覆盖率
+
+![单测覆盖率](./覆盖率.png)
 
 ## UML图
 
@@ -22,13 +28,16 @@
     - [x] 表格内容支持`renderFn`自定义渲染
     - [x] 支持渲染页码按钮进行分页
     - [x] 上一页下一页
-    - [ ] ~~跳转到指定页码~~
 - [x] 支持本地静态数据加载
-- [ ] ~~支持远程数据加载~~
+- [ ] ~~远程数据加载~~（不支持）
 - [x] 支持排序功能
-    - [x] 升序/降序
+    - [x] 全局排序
+    - [x] 仅支持by单列数据排序
+    - [ ] ~~支持多列的复杂排序~~
+    - [x] 升序/降序/取消排序
     - [x] 列排序后有高亮小三角标明
 - [x] 支持筛选功能
+    - [x] 全局筛选
     - [x] 支持配置筛选字段
     - [x] 支持对renderFn自定义渲染函数过滤过的内容进行筛选
 
@@ -111,11 +120,11 @@ export default defineComponent({
         },
       },
     ])
-    const tableFilters = ref(['name', 'age', 'sex'])
-    const tablePagination = ref({
+    const tableFilters = ['name', 'age', 'sex']
+    const tablePagination = {
       pageSize: 10, // 每页大小
       pageIndex: 1, // 当前页码
-    })
+    }
     const deleteItem = (item: Staff) => {
       const deleteIndex = tableData.value.findIndex(data => data.name === item.name)
       tableData.value.splice(deleteIndex, 1)
@@ -152,7 +161,7 @@ export default defineComponent({
 | `data` | 表格静态数据 | `Array` | `[]` |
 | `columns` | 列头数据 | `Array<ColumnsProps>` | `[]` |
 | `showHeader` | 是否展示表头 | `Boolean` | `true` |
-| `pagination` | 分页配置 | `PropType<paginationType> | false` | `false` |
+| `pagination` | 初始分页配置 | `PropType<paginationType> | false` | `false` |
 | `maxHeight` | 表格体最大高度，超出滚动显示 | `Number | String` | `-1` |
 | `filters` | 筛选器配置 | `String[]` | [] |
 

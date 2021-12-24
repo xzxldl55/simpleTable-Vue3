@@ -126,7 +126,7 @@ th, td {
     border-color: #39f;
     color: #39f;
 }
-.pagination-btn.on {
+.pagination-btn.page-on {
     background: #39f;
     color: #fff;
     border-color: transparent;
